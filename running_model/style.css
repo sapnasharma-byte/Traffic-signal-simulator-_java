@@ -1,0 +1,634 @@
+/* ===================================
+   SMART TRAFFIC SIMULATOR
+=================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #101820;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+/* HEADER */
+
+header {
+    margin-bottom: 25px;
+}
+
+header h1 {
+    color: #00e5ff;
+    margin-bottom: 8px;
+    font-size: 32px;
+}
+
+header p {
+    color: #aaa;
+}
+
+/* BUTTONS */
+
+button {
+    padding: 11px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    background: #00bcd4;
+    color: #07151a;
+    transition: 0.2s;
+    margin: 5px;
+}
+
+button:hover {
+    transform: scale(1.04);
+    filter: brightness(1.15);
+}
+
+.controls {
+    margin: 20px 0;
+}
+
+#startBtn {
+    background: #20df65;
+}
+
+#pauseBtn {
+    background: #ffc107;
+}
+
+#resetBtn {
+    background: #ff5252;
+}
+
+/* STATUS */
+
+.status-panel {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.status-box {
+    background: #1c2935;
+    border: 1px solid #34495e;
+    border-radius: 12px;
+    padding: 15px;
+    min-width: 130px;
+}
+
+.status-box span {
+    color: #9eb4c7;
+    font-size: 13px;
+}
+
+.status-box h3 {
+    color: #00e5ff;
+    margin-top: 8px;
+}
+
+/* ===================================
+   INTERSECTION
+=================================== */
+
+.intersection {
+    width: 600px;
+    height: 600px;
+    max-width: 95vw;
+    position: relative;
+    margin: 20px auto;
+    overflow: hidden;
+    background: #3d4944;
+
+    border: 5px solid #66746b;
+    border-radius: 8px;
+
+    background-image:
+        linear-gradient(
+            45deg,
+            #ffffff05 25%,
+            transparent 25%,
+            transparent 50%,
+            #ffffff05 50%,
+            #ffffff05 75%,
+            transparent 75%
+        );
+
+    background-size: 30px 30px;
+}
+
+/* ROADS */
+
+.road {
+    position: absolute;
+    background: #303238;
+}
+
+.road.vertical {
+    width: 200px;
+    height: 100%;
+    left: 200px;
+    top: 0;
+}
+
+.road.horizontal {
+    height: 200px;
+    width: 100%;
+    top: 200px;
+    left: 0;
+}
+
+/* LANE MARKINGS */
+
+.lane-line {
+    position: absolute;
+    z-index: 2;
+}
+
+.vertical-line {
+    left: 298px;
+    top: 0;
+    width: 4px;
+    height: 100%;
+
+    background: repeating-linear-gradient(
+        to bottom,
+        #fff 0px,
+        #fff 25px,
+        transparent 25px,
+        transparent 45px
+    );
+}
+
+.horizontal-line {
+    top: 298px;
+    left: 0;
+    height: 4px;
+    width: 100%;
+
+    background: repeating-linear-gradient(
+        to right,
+        #fff 0px,
+        #fff 25px,
+        transparent 25px,
+        transparent 45px
+    );
+}
+
+/* STOP LINES */
+
+.stop-line {
+    position: absolute;
+    background: white;
+    z-index: 3;
+}
+
+.north-stop {
+    left: 210px;
+    top: 175px;
+    width: 180px;
+    height: 5px;
+}
+
+.south-stop {
+    left: 210px;
+    bottom: 175px;
+    width: 180px;
+    height: 5px;
+}
+
+.east-stop {
+    right: 175px;
+    top: 210px;
+    height: 180px;
+    width: 5px;
+}
+
+.west-stop {
+    left: 175px;
+    top: 210px;
+    height: 180px;
+    width: 5px;
+}
+
+/* ZEBRA CROSSINGS */
+
+.zebra {
+    position: absolute;
+    z-index: 3;
+
+    background: repeating-linear-gradient(
+        90deg,
+        white 0px,
+        white 8px,
+        transparent 8px,
+        transparent 16px
+    );
+}
+
+.north-zebra {
+    left: 225px;
+    top: 145px;
+    width: 150px;
+    height: 30px;
+}
+
+.south-zebra {
+    left: 225px;
+    bottom: 145px;
+    width: 150px;
+    height: 30px;
+}
+
+.east-zebra {
+    right: 145px;
+    top: 225px;
+    width: 30px;
+    height: 150px;
+
+    background: repeating-linear-gradient(
+        180deg,
+        white 0px,
+        white 8px,
+        transparent 8px,
+        transparent 16px
+    );
+}
+
+.west-zebra {
+    left: 145px;
+    top: 225px;
+    width: 30px;
+    height: 150px;
+
+    background: repeating-linear-gradient(
+        180deg,
+        white 0px,
+        white 8px,
+        transparent 8px,
+        transparent 16px
+    );
+}
+
+/* ===================================
+   ACTUAL TRAFFIC SIGNAL LIGHTS
+=================================== */
+
+.signal {
+    position: absolute;
+    z-index: 20;
+}
+
+.signal-north {
+    left: 395px;
+    top: 110px;
+}
+
+.signal-south {
+    left: 155px;
+    bottom: 110px;
+}
+
+.signal-east {
+    right: 110px;
+    top: 395px;
+}
+
+.signal-west {
+    left: 110px;
+    top: 155px;
+}
+
+/* Signal housing */
+
+.traffic-light {
+    width: 48px;
+    height: 135px;
+
+    background: #111;
+    border: 4px solid #666;
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    padding: 5px;
+
+    box-shadow: 0 5px 15px #0008;
+}
+
+/* Bulbs */
+
+.light {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+    background: #252525;
+
+    border: 2px solid #555;
+
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+/* RED ON */
+
+.red-light.active {
+    background: #ff2020 !important;
+
+    box-shadow:
+        0 0 10px #ff2020,
+        0 0 25px #ff2020,
+        0 0 40px #ff202080;
+}
+
+/* YELLOW ON */
+
+.yellow-light.active {
+    background: #ffd000 !important;
+
+    box-shadow:
+        0 0 10px #ffd000,
+        0 0 25px #ffd000,
+        0 0 40px #ffd00080;
+}
+
+/* GREEN ON */
+
+.green-light.active {
+    background: #00ff45 !important;
+
+    box-shadow:
+        0 0 10px #00ff45,
+        0 0 25px #00ff45,
+        0 0 40px #00ff4580;
+}
+
+/* ===================================
+   CENTRE
+=================================== */
+
+.intersection-center {
+    position: absolute;
+    left: 245px;
+    top: 245px;
+
+    width: 110px;
+    height: 110px;
+
+    background: #252b30;
+    border: 3px solid #aaa;
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 5;
+
+    color: #00e5ff;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.center-icon {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+/* ===================================
+   VEHICLES
+=================================== */
+
+.car {
+    position: absolute;
+    font-size: 27px;
+    z-index: 10;
+
+    animation-duration: 6s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    animation-play-state: paused;
+}
+
+/* NORTH CARS */
+
+.car-north {
+    left: 235px;
+    top: -40px;
+
+    animation-name: northMove;
+}
+
+.car-north.car2 {
+    animation-delay: -2s;
+}
+
+.car-north.car3 {
+    animation-delay: -4s;
+}
+
+/* SOUTH CARS */
+
+.car-south {
+    left: 335px;
+    bottom: -40px;
+
+    animation-name: southMove;
+}
+
+.car-south.car2 {
+    animation-delay: -2s;
+}
+
+.car-south.car3 {
+    animation-delay: -4s;
+}
+
+/* EAST CARS */
+
+.car-east {
+    right: -45px;
+    top: 235px;
+
+    animation-name: eastMove;
+}
+
+.car-east.car2 {
+    animation-delay: -2s;
+}
+
+.car-east.car3 {
+    animation-delay: -4s;
+}
+
+/* WEST CARS */
+
+.car-west {
+    left: -45px;
+    top: 335px;
+
+    animation-name: westMove;
+}
+
+.car-west.car2 {
+    animation-delay: -2s;
+}
+
+.car-west.car3 {
+    animation-delay: -4s;
+}
+
+/* MOVEMENT */
+
+@keyframes northMove {
+    from {
+        top: -40px;
+    }
+
+    to {
+        top: 640px;
+    }
+}
+
+@keyframes southMove {
+    from {
+        bottom: -40px;
+    }
+
+    to {
+        bottom: 640px;
+    }
+}
+
+@keyframes eastMove {
+    from {
+        right: -45px;
+    }
+
+    to {
+        right: 640px;
+    }
+}
+
+@keyframes westMove {
+    from {
+        left: -45px;
+    }
+
+    to {
+        left: 640px;
+    }
+}
+
+/* ===================================
+   PANELS
+=================================== */
+
+.panel {
+    background: #1c2935;
+    max-width: 900px;
+
+    margin: 20px auto;
+    padding: 20px;
+
+    border-radius: 12px;
+    border: 1px solid #34495e;
+}
+
+.panel h2 {
+    margin-bottom: 15px;
+    color: #00e5ff;
+}
+
+.emergency-buttons,
+.test-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.emergency-buttons button {
+    background: #ff5252;
+    color: white;
+}
+
+.test-buttons button {
+    background: #607d8b;
+    color: white;
+}
+
+/* LOGS */
+
+.logs {
+    height: 200px;
+    overflow-y: auto;
+
+    background: #0d141b;
+    padding: 12px;
+
+    border-radius: 8px;
+    text-align: left;
+}
+
+.log-entry {
+    color: #b9d6e6;
+    border-bottom: 1px solid #263746;
+    padding: 8px 0;
+    font-size: 13px;
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 25px;
+    padding: 15px;
+    color: #8fa6b6;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 650px) {
+
+    body {
+        padding: 5px;
+    }
+
+    .intersection {
+        width: 95vw;
+        height: 95vw;
+    }
+
+    .road.vertical {
+        width: 33.33%;
+        left: 33.33%;
+    }
+
+    .road.horizontal {
+        height: 33.33%;
+        top: 33.33%;
+    }
+
+    .intersection-center {
+        left: 40%;
+        top: 40%;
+        width: 20%;
+        height: 20%;
+    }
+
+    .traffic-light {
+        transform: scale(0.75);
+    }
+}

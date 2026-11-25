@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Traffic Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>🚦 Smart Traffic Simulator</h1>
+    <p>Intelligent Traffic Management System</p>
+</header>
+
+<div class="controls">
+    <button id="startBtn">▶ Start</button>
+    <button id="pauseBtn">⏸ Pause</button>
+    <button id="resetBtn">↻ Reset</button>
+</div>
+
+<div class="status-panel">
+    <div class="status-box">
+        <span>Status</span>
+        <h3 id="status">Ready</h3>
+    </div>
+
+    <div class="status-box">
+        <span>Current Road</span>
+        <h3 id="currentRoad">None</h3>
+    </div>
+
+    <div class="status-box">
+        <span>Timer</span>
+        <h3><span id="timer">12</span> sec</h3>
+    </div>
+
+    <div class="status-box">
+        <span>Vehicles</span>
+        <h3 id="vehicleCounter">12</h3>
+    </div>
+</div>
+
+<!-- INTERSECTION -->
+<div class="intersection">
+
+    <!-- Roads -->
+    <div class="road vertical"></div>
+    <div class="road horizontal"></div>
+
+    <!-- Lane markings -->
+    <div class="lane-line vertical-line"></div>
+    <div class="lane-line horizontal-line"></div>
+
+    <!-- Stop lines -->
+    <div class="stop-line north-stop"></div>
+    <div class="stop-line south-stop"></div>
+    <div class="stop-line east-stop"></div>
+    <div class="stop-line west-stop"></div>
+
+    <!-- Zebra crossings -->
+    <div class="zebra north-zebra"></div>
+    <div class="zebra south-zebra"></div>
+    <div class="zebra east-zebra"></div>
+    <div class="zebra west-zebra"></div>
+
+    <!-- North Signal -->
+    <div class="signal signal-north">
+        <div class="traffic-light" id="signalNorth">
+            <div class="light red-light"></div>
+            <div class="light yellow-light"></div>
+            <div class="light green-light"></div>
+        </div>
+    </div>
+
+    <!-- South Signal -->
+    <div class="signal signal-south">
+        <div class="traffic-light" id="signalSouth">
+            <div class="light red-light"></div>
+            <div class="light yellow-light"></div>
+            <div class="light green-light"></div>
+        </div>
+    </div>
+
+    <!-- East Signal -->
+    <div class="signal signal-east">
+        <div class="traffic-light" id="signalEast">
+            <div class="light red-light"></div>
+            <div class="light yellow-light"></div>
+            <div class="light green-light"></div>
+        </div>
+    </div>
+
+    <!-- West Signal -->
+    <div class="signal signal-west">
+        <div class="traffic-light" id="signalWest">
+            <div class="light red-light"></div>
+            <div class="light yellow-light"></div>
+            <div class="light green-light"></div>
+        </div>
+    </div>
+
+    <!-- Centre -->
+    <div class="intersection-center">
+        <div class="center-icon">🚦</div>
+        <div>SMART</div>
+        <div>JUNCTION</div>
+    </div>
+
+    <!-- North cars -->
+    <div class="car car-north" id="carNorth">🚗</div>
+    <div class="car car-north car2" id="carNorth2">🚙</div>
+    <div class="car car-north car3" id="carNorth3">🚕</div>
+
+    <!-- South cars -->
+    <div class="car car-south" id="carSouth">🚗</div>
+    <div class="car car-south car2" id="carSouth2">🚙</div>
+    <div class="car car-south car3" id="carSouth3">🚕</div>
+
+    <!-- East cars -->
+    <div class="car car-east" id="carEast">🚗</div>
+    <div class="car car-east car2" id="carEast2">🚙</div>
+    <div class="car car-east car3" id="carEast3">🚕</div>
+
+    <!-- West cars -->
+    <div class="car car-west" id="carWest">🚗</div>
+    <div class="car car-west car2" id="carWest2">🚙</div>
+    <div class="car car-west car3" id="carWest3">🚕</div>
+
+</div>
+
+<!-- EMERGENCY PANEL -->
+<section class="panel">
+    <h2>🚨 Emergency Vehicle</h2>
+
+    <div class="emergency-buttons">
+        <button onclick="requestEmergency('North','Ambulance')">
+            North Ambulance
+        </button>
+
+        <button onclick="requestEmergency('East','Ambulance')">
+            East Ambulance
+        </button>
+
+        <button onclick="requestEmergency('South','Ambulance')">
+            South Ambulance
+        </button>
+
+        <button onclick="requestEmergency('West','Ambulance')">
+            West Ambulance
+        </button>
+    </div>
+</section>
+
+<!-- TEST PANEL -->
+<section class="panel">
+    <h2>🧪 Test Cases</h2>
+
+    <div class="test-buttons">
+        <button onclick="testNormal()">Normal Test</button>
+        <button onclick="testBoundary()">Boundary Test</button>
+        <button onclick="testInvalid()">Invalid Test</button>
+        <button onclick="testEmergency()">Emergency Test</button>
+    </div>
+</section>
+
+<!-- LOGS -->
+<section class="panel">
+    <h2>📋 Activity Logs</h2>
+    <div id="logs" class="logs"></div>
+</section>
+
+<footer>
+    Smart Traffic Management Simulation
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
